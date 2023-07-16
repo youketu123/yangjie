@@ -12,35 +12,31 @@
 
 [[main]]
   name = "About"
-  pageRef = "docs"
+  pageRef = "about"
   weight = 10
 
 
 [[main]]
   name = "Research"
-  pageRef = "posts"
+  pageRef = "research"
   weight = 20
 
 
 [[main]]
   name = "Teaching"
-  pageRef = "samples"
+  pageRef = "teaching"
   weight = 30
 
 [[main]]
   name = "Data"
-  pageRef = "guides"
+  pageRef = "data"
   weight = 40
 
 [[main]]
   name = "Notes"
-  pageRef = "users"
+  pageRef = "notes"
   weight = 90
 
-#[[main]]
-#  name = "Merch"
-#  url = "http://tee.pub/lic/qwSlWVBL5zc"
-#  weight = 100
 
 #[[main]]
 #  name = "Test"

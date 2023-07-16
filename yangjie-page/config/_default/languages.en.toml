@@ -3,12 +3,14 @@ languageName = "English"
 weight = 1
 title = "JIE YANG"
 
+
 [params]
   displayName = "EN"
   isoCode = "en"
   rtl = false
   dateFormat = "2 January 2006"
-  logo = "img/avatar1.png"
+  # logo = "img/whale.png"
+  favicon = true
   # secondaryLogo = "PATH"
   description = ""
   # copyright = "Copy, _right?_ :thinking_face:"
@@ -16,7 +18,7 @@ title = "JIE YANG"
 
 [author]
   name = "Jie Yang"
-  image = "img/avatar.jpg"
+  image = "img/avatar.png"
   headline = "Working on Environmental Economics"
   bio = ""
   links = [
