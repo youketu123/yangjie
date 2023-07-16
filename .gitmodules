@@ -1,0 +1,4 @@
+[submodule "yangjie-page/themes/blowfish"]
+	path = yangjie-page/themes/blowfish
+	url = https://github.com/nunocoracao/blowfish.git
+	branch = main

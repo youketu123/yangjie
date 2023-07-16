@@ -1,0 +1,30 @@
+languageCode = "en"
+languageName = "English"
+weight = 1
+title = "JIE YANG"
+
+[params]
+  displayName = "EN"
+  isoCode = "en"
+  rtl = false
+  dateFormat = "2 January 2006"
+  logo = "img/avatar1.png"
+  # secondaryLogo = "PATH"
+  description = ""
+  # copyright = "Copy, _right?_ :thinking_face:"
+
+
+[author]
+  name = "Jie Yang"
+  image = "img/avatar.jpg"
+  headline = "Working on Environmental Economics"
+  bio = ""
+  links = [
+    { envelope = "mailto:ygxm320@gmail.com" },
+    { orcid = "https://orcid.org/0000-0001-8175-0660" },
+    { link = "https://researchmap.jp/jieyang" },
+    { list = "https://papers.ssrn.com/sol3/cf_dev/AbsByAuth.cfm?per_id=5629203" },
+
+  ]
+
+  
