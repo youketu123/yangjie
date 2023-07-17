@@ -1,6 +1,5 @@
 ---
 title: "Data"
-
 sharingLinks : false
 
 ---

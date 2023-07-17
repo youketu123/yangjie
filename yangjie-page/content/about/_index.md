@@ -4,9 +4,16 @@ title: "About Me"
 sharingLinks : false
 showTableOfContents : true
 groupByYear : false
+showTableOfContents: true
+#layout: "simple"
+
 
 ---
 ---
+
+{{< typeit >}}
+Welcome to my page ⇒
+{{< /typeit >}}
 
 ## Basic Info
 
