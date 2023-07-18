@@ -8,5 +8,9 @@ sharingLinks : false
 showtableofcontents: false
 ---
 
+> **Generalized random forests**
+
+- [Package grf in R](https://github.com/grf-labs/grf)
+
 
 
