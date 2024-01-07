@@ -59,7 +59,7 @@ dir_ls("trialdata_japan") %>%
   arrange(date) -> datafile 
 ```
 
-File `trialdata_japan/SVDNB_npp_d20180905.rade9d.tif`, which is saved as df1, will be used an example to show the detailed steps to process nightlight tif data, while later loop will be used to operate all the nightlight files. R code file `main.R` will show how to use loop to deal with all the files at once on both prefecture and municipality levels
+File `trialdata_japan/SVDNB_npp_d20180905.rade9d.tif`, which is saved as df1, will be used an example to show the detailed steps to process nightlight tif data, while later loop will be used to operate all the nightlight files. The following R codes will also show how to use loop to deal with all the files at once on both prefecture and municipality levels
 
 ```html
 # check the name of the first file and save it as df1
@@ -129,7 +129,8 @@ dir.create("pref") # create a new file named 'pref'
 dir.create("municipal") # create a new file named 'municipal'
 
 # loop to create prefecture and municipality level data
-library(parallel) # multiple operation when data amount is large
+# multiple operation when data amount is large
+library(parallel) 
 makeCluster(3) -> cl # employ 3 operations at the same time
 clusterExport(cl, "pref") 
 clusterExport(cl, "municipal") 
@@ -139,18 +140,22 @@ clusterExport(cl, "datafile")
 parLapply(cl, 1:nrow(datafile), function(x){ 
   if(!file.exists(paste0("pref/", datafile$date[x], ".rds"))) { 
     library(terra)
-    jp <- terra::vect(sf::st_sf(jp)) # change jp data to spatial vectors
+    # change jp data to spatial vectors
+    jp <- terra::vect(sf::st_sf(jp)) 
     terra::rast(datafile$value[x]) -> nightlight 
-    nightlight %>%  # cut out japan for each tif file
+    # cut out japan for each tif file
+    nightlight %>%  
     terra::crop(jp) %>% 
     terra::mask(jp) -> nightlight
-    nightlight[nightlight < 0] <- NA  # rule out unreasonable or extreme values
+    # rule out unreasonable or extreme values
+    nightlight[nightlight < 0] <- NA  
     nightlight[nightlight > 1000] <- NA 
     nightlight %>% # calculate mean values on the prefecture level
     terra::extract(terra::vect(pref), fun = mean, na.rm = T) %>% 
     tidyr::as_tibble() %>% 
     dplyr::mutate(year = x) %>% 
-    readr::write_rds(paste0("pref/", datafile$date[x], ".rds")) # save rds file by date
+    # save rds file by date
+    readr::write_rds(paste0("pref/", datafile$date[x], ".rds")) 
     nightlight %>% # calculate mean values on the municipality level
     terra::extract(terra::vect(municipal), fun = mean, na.rm = T) %>% 
     tidyr::as_tibble() %>% 
@@ -177,15 +182,20 @@ read_sf("jpn_adm/jpn_admbnda_adm2_2019.shp") %>%
 # combine nightlight data by date
 library(tidyverse)
 lapply(fs::dir_ls("pref"), FUN = function(x){
-  readr::read_rds(x) %>% 
-  dplyr::select(-year)  # delete variable 'year'
+  readr::read_rds(x) %>%
+  # delete variable 'year' 
+  dplyr::select(-year)  
   }) %>% 
   bind_cols() %>% # combine by column
-  dplyr::select(-contains("ID")) %>%   # delete variables contain 'ID'
-  mutate(ID = as.numeric(row.names(.))) %>%  # add new numeric variable 'ID'
+  # delete variables contain 'ID'
+  dplyr::select(-contains("ID")) %>%  
+  # add new numeric variable 'ID' 
+  mutate(ID = as.numeric(row.names(.))) %>%  
   dplyr::select(ID, everything()) %>% 
-  gather(-ID, key = "key", value = "value") %>% # reshape data frame
-  mutate(date = lubridate::ymd(str_match(basename(key), "\\d{8}")[,1])) %>% # add 'date'
+  # reshape data frame
+  gather(-ID, key = "key", value = "value") %>% 
+  # add 'date'
+  mutate(date = lubridate::ymd(str_match(basename(key), "\\d{8}")[,1])) %>% 
   dplyr::select(-key) -> prefdf # save data as 'prefdf'
 # check the data
 prefdf
@@ -195,16 +205,19 @@ prefdf
 
 ```html
 # merge nightlight data with pref data and write to excel data
+  # merge pref data to the left side of prefdf data using 'left_join'
 prefdf %>% 
   left_join(
     pref %>% 
       st_drop_geometry() %>% 
       mutate(ID = as.numeric(row.names(.)))
-  ) %>%  # merge pref data to the left side of prefdf data using 'left_join'
+  ) %>%  
   dplyr::select(-ID) %>% 
+  # select variables to keep and reorder
   dplyr::select(date, ADM1_EN,  ADM1_JA,  ADM1_PCODE, 
-                nightlight_mean = value) %>%   # select variables to keep and reorder 
-  writexl::write_xlsx("nightlight_pref.xlsx") # write to excel file
+                nightlight_mean = value) %>%  
+  # write to excel file  
+  writexl::write_xlsx("nightlight_pref.xlsx") 
 ```
 
 ```html
@@ -217,7 +230,8 @@ prefdf %>%
   dplyr::select(-ID) %>% 
   dplyr::select(date, ADM1_EN,  ADM1_JA,  ADM1_PCODE, 
                 nightlight_mean = value) %>% 
-  haven::write_dta("nightlight_pref.dta") # write to dta file
+  # write to dta file
+  haven::write_dta("nightlight_pref.dta") 
 ```
 
 > Step 6: Repeat steps 4 and 5 to output municipality level data
@@ -305,10 +319,9 @@ municipal %>%
 # ggsave("municipalmap.jpg", g_municipal)
 ```
 
-
 {{< figure
-    src="prefmap.jpg"
-    caption="Nightlight intensity by prefecture"
+    src="municipalmap.jpg"
+    caption="Nightlight intensity by municipality"
     >}}
 
 
@@ -350,6 +363,6 @@ pref %>%
 ```
 
 {{< figure
-    src="municipalmap.jpg"
-    caption="Nightlight intensity by municipality"
+    src="prefmap.jpg"
+    caption="Nightlight intensity by prefecture"
     >}}
