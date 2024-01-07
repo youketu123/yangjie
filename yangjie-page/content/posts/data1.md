@@ -50,8 +50,9 @@ vect(pref) -> pref
 pref
 ```
 
+Check files in folder 'trialdata_japan', save the folder as 'datafile'
+
 ```html
-# check files in folder 'trialdata_japan', save the folder as 'datafile'
 dir_ls("trialdata_japan") %>% 
   as.character() %>% 
   as_tibble() %>% 
