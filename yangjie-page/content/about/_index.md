@@ -30,6 +30,6 @@ Public service, pollution & health; Impacts of climate change and natural disast
 
 ## CV
 
-Here is my [CV](/posts/cv/).
+Here is my [CV](/posts/CV_Yangjie.pdf).
 
 ---
