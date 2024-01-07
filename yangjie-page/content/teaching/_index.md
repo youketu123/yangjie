@@ -14,9 +14,9 @@ cardView : true
 
 
 ## 2023
-
-- [(TBA) Konan University: Environmental Economics](/posts/2023-3/)
-- [(TBA) Hiroshima University: Environmental Economics II](/posts/2023-2/)
+- [University of Toyama: Statistics and R](/posts/2023-4/)
+- [Konan University: Environmental Economics](/posts/2023-3/)
+- [Hiroshima University: Environmental Economics II](/posts/2023-2/)
 - [Hiroshima University: Environmental Economics I](/posts/2023-1/)
 
 {{< figure
