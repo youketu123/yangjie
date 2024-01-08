@@ -13,21 +13,25 @@ showtableofcontents: false
 # Related R packages
 
 ```html
-library(terra) # spatial data analysis package
-library(tidyverse) # data processing package
-library(sf) # geodata encoding package
-library(fs) # file system operation package
+# spatial data analysis package
+library(terra) 
+# data processing package
+library(tidyverse) 
+# geodata encoding package
+library(sf) 
+# file system operation package
+library(fs) 
 ```
 # To begin with
 
 We need the following files for the data processing.
 
-1. TIF data of nightlight
+1. TIF data of nightlight intensity
 2. Shp files are needed to identify the study area
 3. Data description 
-   - 4.1 shp files of administrative division in Japan, suppose the file name is `jpn_adm`
+   - 4.1 shp files of administrative division in Japan, name the file `jpn_adm`
    - 4.2 shp files link: https://data.humdata.org/dataset/cod-ab-jpn
-   - 4.3 nightlight tif data in Japan during 2018/09/05--2018/09/07, suppose the file name is `traildata_japan`
+   - 4.3 nightlight tif data in Japan during 2018/09/05--2018/09/07, name the file `traildata_japan`, this is global data
    - 4.4 data link: https://eogdata.mines.edu/nighttime_light/nightly/rade9d/
 
 
@@ -35,12 +39,12 @@ We need the following files for the data processing.
 
 ## Setting and checking
 
-Daily nightlight tif files during 2018/09/05--2018/09/07 in will be used to show how to create prefecture-level panel data using R. Before that, check the nightlight data and geo data at first
+Daily nightlight tif files during 2018/09/05--2018/09/07 will be used to show how to create prefecture-level panel data using R. Before that, check the nightlight data and geo data at first.
 
 ```html
 # load tif file using 'rast' code in package 'terra'
 rast("trialdata_japan/SVDNB_npp_d20180905.rade9d.tif") -> nightlight
-nightlight # this is global data
+nightlight 
 ```
 ```html
 # load shp file
@@ -50,7 +54,7 @@ vect(pref) -> pref
 pref
 ```
 
-Check files in folder 'trialdata_japan', save the folder as 'datafile'
+Check files in folder 'trialdata_japan', save the folder as 'datafile'.
 
 ```html
 dir_ls("trialdata_japan") %>% 
@@ -122,7 +126,7 @@ pref_mean # mean value of nightlight data by prefecture in 2018/09/05
 > Step 3: Use loop to process all the files in folder `trialdata_japan' 
 
 In this step, package `parallel` is used to operate the codes by multiple lines.
-This loop will calculate the mean value of nightlight data on the prefecture level and municipality level
+This loop will calculate the mean value of nightlight data on the prefecture level and municipality level.
 
 ```html
 # create new folders to save data
